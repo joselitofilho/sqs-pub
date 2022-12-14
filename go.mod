@@ -1,4 +1,4 @@
-module github.com/akhettar/sqs-pub
+module github.com/joselitofilho/sqs-pub
 
 go 1.15
 
