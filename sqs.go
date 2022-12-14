@@ -16,11 +16,12 @@ import (
 // SQSMessageReplayer type
 type SQSMessageReplayer struct {
 	sess *session.Session
-	cfg  SQSMessageReplayConfig
+	cfg  *SQSMessageReplayConfig
 }
 
 // SQSMessageReplayConfig type
 type SQSMessageReplayConfig struct {
+	region           string
 	from             string
 	to               string
 	deleteFromSource bool
@@ -29,13 +30,13 @@ type SQSMessageReplayConfig struct {
 }
 
 // NewSQSMessageReplayer creates an instace of the SQS Replayer
-func NewSQSMessageReplayer() *SQSMessageReplayer {
-
+func NewSQSMessageReplayer(cfg *SQSMessageReplayConfig) *SQSMessageReplayer {
 	// Create Session
 	session := session.Must(session.NewSessionWithOptions(session.Options{
+		Config:            aws.Config{Region: aws.String(cfg.region)},
 		SharedConfigState: session.SharedConfigEnable,
 	}))
-	return &SQSMessageReplayer{sess: session, cfg: SQSMessageReplayConfig{}}
+	return &SQSMessageReplayer{sess: session, cfg: cfg}
 }
 
 func (s *SQSMessageReplayer) replay(ctx context.Context, args []string) error {
