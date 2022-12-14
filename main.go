@@ -16,7 +16,7 @@ var (
 )
 
 func init() {
-	rootFlagSet.StringVar(&cfg.region, "region", "", "AWS region")
+	rootFlagSet.StringVar(&cfg.region, "region", "eu-west-1", "AWS region")
 	rootFlagSet.StringVar(&cfg.from, "from", "queue-name-source", "sqs queue from where messages will be sourced from")
 	rootFlagSet.StringVar(&cfg.to, "to", "queue-name-destination", "sqs queue where messages will be pushed to")
 	rootFlagSet.StringVar(&cfg.filters, "filters", "10104211111292", "comma separted text that can be used a message body filter")
